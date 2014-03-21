@@ -1,0 +1,17 @@
+#!/bin/bash
+
+if [ ! -t 0 ] ; then
+	file=/dev/stdin
+elif [ -n "$1" -a -e "$1" ] ; then
+	file=$1
+	shift
+else
+	echo "Usage: $0 [options] [FILE]"
+	echo "or e.g. head code.c | $0"
+	echo
+	echo "Options:"
+	echo "	-l <lang>	Language"
+	exit 1
+fi
+
+pygmentize -f terminal -g $@ $file
